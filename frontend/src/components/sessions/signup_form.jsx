@@ -70,24 +70,28 @@ class SignupForm extends React.Component {
               <input type="text"
                 value={this.state.name}
                 onChange={this.update('name')}
+
               />
               <br />
               <p>Email</p>
               <input type="text"
                 value={this.state.email}
                 onChange={this.update('email')}
+                className="field-inputs"
               />
               <br />
               <p>Password</p>
               <input type="password"
                 value={this.state.password}
                 onChange={this.update('password')}
+                className="field-inputs"
               />
               <br />
               <p>Confirm Password</p>
               <input type="password"
                 value={this.state.password2}
                 onChange={this.update('password2')}
+                className="field-inputs"
 
               />
               <br />

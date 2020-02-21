@@ -43,37 +43,26 @@ $dark-blue: #071e3d;
     flex-direction: column;
 }
 
-input {
-    background-color: #fafafa
-}
 
-input:hover {
-    background-color: white;
-    border: 1px solid #b9b9b9;
-}
 
-input:focus {
+
+.session-form > input:focus {
     background-color: white;
     border: 1px solid $light-teal;
 }
 
-.session-form > input {
+.session-form > input.field-inputs {
     margin-top: 10px;
     width: 415px;
     height: 40px;
     border-radius: 5px;
     border: 1px solid #fafafa;
     padding-left: 10px;
+    background-color: #fafafa
 }
 
-.Sign-up-button, .login-button {
-    background-color: $light-teal;
-    color: white;
-    font-size: 11px;
-    font-weight: bold;
-    max-width: 140px;
-    max-height: 50px;
-}
+
+
 
 .Sign-up-button:hover, .login-button:hover {
     background-color: #28e7ae;
@@ -102,4 +91,21 @@ input:focus {
 
 .switch-form-link {
     font-size: 12px;
+}
+
+.Sign-up-button, .login-button {
+    background-color: $light-teal;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    max-width: 140px;
+    max-height: 50px;
+}
+
+.Sign-up-button, .login-button {
+    width: 25%;
+    height: 25%;
+    border-radius: 5px;
+    border: none;   
+    margin-top: 20px;
 }

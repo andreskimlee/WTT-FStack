@@ -10,7 +10,7 @@ import { logout } from './actions/session_actions';
 import './style/reset.css'
 import "./style/main.scss";
 import './style/session.scss'
-
+import './style/cash.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;

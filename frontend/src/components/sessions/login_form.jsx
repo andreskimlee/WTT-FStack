@@ -76,6 +76,7 @@ class LoginForm extends React.Component {
               value={this.state.email}
               onChange={this.update("email")}
               placeholder="Email"
+              className="field-inputs"
             />
             <br />
             <input
@@ -83,6 +84,7 @@ class LoginForm extends React.Component {
               value={this.state.password}
               onChange={this.update("password")}
               placeholder="Password"
+              className="field-inputs"
             />
             <br />
             <input type="submit" className="login-button" value="Log in" />

@@ -18,7 +18,8 @@ class MainPage extends React.Component {
 
         return (
             <div className="mainpage-container">
-                <input type="submit" onClick={this.handleClick} value="Sign Out" />
+                <div>Welcome! {this.props.currentUser.name}</div>
+                <input type="submit" className="login-button" onClick={this.handleClick} value="Sign Out" />
                 <Portfolio />
                 <Cash />
             </div>
