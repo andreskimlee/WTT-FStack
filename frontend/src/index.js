@@ -11,6 +11,8 @@ import './style/reset.css'
 import "./style/main.scss";
 import './style/session.scss'
 import './style/cash.scss'
+import './style/mainpage.scss'
+import './style/portfolio.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;

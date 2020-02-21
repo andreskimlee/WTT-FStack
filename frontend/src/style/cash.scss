@@ -1,9 +1,54 @@
-.ticker-search {
+.ticker-search-1 {
     width: 50%;
     height: 50%;
+    background-color: #50505d;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    margin-right: 5px;
+    margin-top: 10px;
+    position: relative;
+}
+.ticker-search-2 {
+    width: 50%;
+    height: 50%;
+    background-color: #50505d;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    margin-right: 5px;
+    margin-top: 10px;
+}
+
+.cash-container {
+    margin-left: 40px;
+    margin-top: 10%;
+}
+
+.search-result-item {
+    color: #20ce9a;
+    padding: 10px;
+}
+
+.search-res-cont {
+    position: absolute;
+    background-color: #41414c;
+    width: 188px;
+    border-radius: 3px;
+    top: 293px;
 }
 
 .search-result-item:hover {
-    background-color: red;
+    background-color: rgb(77, 77, 77);
     cursor: pointer;
 }
+
+.cash-available-text {
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+

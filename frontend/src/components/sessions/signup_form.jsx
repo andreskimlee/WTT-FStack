@@ -70,7 +70,7 @@ class SignupForm extends React.Component {
               <input type="text"
                 value={this.state.name}
                 onChange={this.update('name')}
-
+                className="field-inputs"
               />
               <br />
               <p>Email</p>

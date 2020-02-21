@@ -1,6 +1,7 @@
 import React from 'react';
 import Portfolio from "./portfolio"
 import Cash from "./cash_container"
+import { Link } from "react-router-dom"
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -18,10 +19,16 @@ class MainPage extends React.Component {
 
         return (
             <div className="mainpage-container">
-                <div>Welcome! {this.props.currentUser.name}</div>
-                <input type="submit" className="login-button" onClick={this.handleClick} value="Sign Out" />
-                <Portfolio />
-                <Cash />
+                <div className="nav-container">
+                    <div id="aa">Welcome! {this.props.currentUser.name}</div>
+                    <Link id="aa" className="text-4-links" to="/transactions">Transactions</Link>
+                    <Link id="aa" className="text-4-links" to="/portfolio">Portfolio</Link>
+                    <input id="aa" type="submit" className="sign-out" onClick={this.handleClick} value="Sign Out" />
+                </div>
+                <div className="mid-container">
+                    <Portfolio />
+                    <Cash />
+                </div>
             </div>
         )
     }

@@ -1,0 +1,41 @@
+.mainpage-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #1a1a1d;
+    font-family: sans-serif;
+    font-weight: 100;
+    min-height: 700px;
+}
+
+.nav-container {
+    display: flex;
+    background-color: #1a1a1d;
+    color: #20ce9a;
+    padding: 20px;
+    justify-content: flex-end;
+    #aa {
+        font-weight: 500;
+        margin: 10px;
+    }
+    .sign-out {
+        background-color: #20ce9a;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+}
+
+.text-4-links {
+    color: #20ce9a;
+    text-decoration: none;
+}
+
+
+.mid-container {
+    display: flex;
+}
+
+::placeholder {
+    color: white;
+}
