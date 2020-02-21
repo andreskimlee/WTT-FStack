@@ -17,12 +17,10 @@ const UserSchema = new Schema({
     type: Number,
     index: true,
     default: 5000,
-    required: true
   },
   portfolio_value: {
     type: Number,
     index: true,
-    required: true
   },
   date: {
     type: Date,

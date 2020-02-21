@@ -4,7 +4,7 @@ const Transaction = require("../../models/Transaction");
 const passport = require("passport");
 
 router.post("/",
-  passport.authenticate("jwt", { session: false }), // ensures they are logged in to post request (Buy / sell stock) 
+  passport.authenticate("jwt", { session: false }), // s they are logged in to post request (Buy / sell stock) 
   (req, res) => {
 
 

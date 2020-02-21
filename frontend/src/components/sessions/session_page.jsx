@@ -6,13 +6,9 @@ class SessionPage extends React.Component {
         super(props)
     }
 
-    render () {
+    render() {
         return (
             <div className='session-page'>
-                <p>
-                You are currently not signed in.
-
-                </p>
                 <SignUpContainer></SignUpContainer>
             </div>
         )

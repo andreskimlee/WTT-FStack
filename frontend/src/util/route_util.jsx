@@ -15,29 +15,29 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
     !loggedIn ? (
       <Component {...props} />
     ) : (
-      <Redirect to="/" />
-    )
+        <Redirect to="/" />
+      )
   )} />
 );
 
 // if we are logged in we render component passed in, if we are NOT,
 // we redirect to login page
 
-const Protected = ({ component: Component, loggedIn, ...rest}) => (
+const Protected = ({ component: Component, loggedIn, ...rest }) => (
   <Route
     {...rest}
-    render = {props =>
+    render={props =>
       loggedIn ? (
         <Component {...props} />
       ) : (
-        <Redirect to="/signin" />
-      )
+          <Redirect to="/signin" />
+        )
     }
   />
 );
 
 const msp = state => (
-  {loggedIn: state.session.isAuthenticated}
+  { loggedIn: state.session.isAuthenticated }
 );
 
 // withRouter gives Auth component access to this.props.history

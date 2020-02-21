@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { WorkMail } from 'aws-sdk';
+import Wallpaper from '../../assets/signin_wallpaper.png'
 
 
 class LoginForm extends React.Component {
@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
   }
 
   update(field) {
-    return e => this.setState({[field]: e.currentTarget.value});
+    return e => this.setState({ [field]: e.currentTarget.value });
   }
 
   handleSubmit(e) {
@@ -50,13 +50,13 @@ class LoginForm extends React.Component {
     };
     this.props.login(user);
   }
-  
+
   handleDemoLogin(e) {
     e.preventDefault();
 
     let user = {
-      email: 'user14@mail.com',
-      password: 'password'
+      email: 'andreskimlee@gmail.com',
+      password: 'Hiremepls'
     };
     this.props.login(user);
   }
@@ -64,38 +64,38 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className="splash-form-container">
+        <img className="wallpaper" src={Wallpaper} alt="session-wallpaper" />
         <div className="session-outer">
-          <img src="https://outfittr-assets.s3.amazonaws.com/outfittr-logo-v3.png" alt="Outfittr Logo" className='form-logo'/>
-          <h2>Welcome Back To Outfittr!</h2>
+          <h2>Welcome Back To PiperHood!</h2>
           {/* <Link to="/splash/signup">
           <button>Signup</button>
         </Link> */}
           <form className="session-form" onSubmit={this.handleSubmit}>
-              <input
-                type="text"
-                value={this.state.email}
-                onChange={this.update("email")}
-                placeholder="Email"
-              />
-              <br />
-              <input
-                type="password"
-                value={this.state.password}
-                onChange={this.update("password")}
-                placeholder="Password"
-              />
-              <br />
-              <input type="submit" value="Log in" />
-              <div className="error-list">
-                {this.renderErrors()}
-              </div>
+            <input
+              type="text"
+              value={this.state.email}
+              onChange={this.update("email")}
+              placeholder="Email"
+            />
+            <br />
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={this.update("password")}
+              placeholder="Password"
+            />
+            <br />
+            <input type="submit" className="login-button" value="Log in" />
+            <div className="error-list">
+              {this.renderErrors()}
+            </div>
           </form>
           <form className="demo-user-form" onSubmit={this.handleDemoLogin}>
-            <input type="submit" value="Log in as Demo User" />
+            <input className="demo-login-button" type="submit" value="Log in as Demo User" />
           </form>
           <div className="switch-form-link">
             {" "}
-            Don't have an account? <Link to="/signup">Sign up</Link>
+            Don't have an account? <Link className="signup-text" to="/signup">Sign up</Link>
           </div>
         </div>
       </div>

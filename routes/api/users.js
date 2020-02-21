@@ -26,8 +26,7 @@ router.post("/register", (req, res) => {
       return res.status(400).json(errors);
     } else {
       const newUser = new User({
-        username: req.body.username,
-        fullName: req.body.fullName,
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password
       });
@@ -93,7 +92,9 @@ router.post("/login", (req, res) => {
         const payload = {
           id: user.id,
           username: user.username,
-          email: user.email
+          email: user.email,
+          name: user.name,
+          funds: user.funds
         };
 
         jwt.sign(

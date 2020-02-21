@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
+import Wallpaper from '../../assets/signin_wallpaper.png'
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -8,8 +9,7 @@ class SignupForm extends React.Component {
       email: '',
       password: '',
       password2: '',
-      username: '',
-      fullName: '',
+      name: '',
       errors: {}
     };
 
@@ -31,14 +31,13 @@ class SignupForm extends React.Component {
     });
   }
 
-  handleSubmit(e) { 
+  handleSubmit(e) {
     e.preventDefault();
     let user = {
-      username: this.state.username,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2,
-      fullName: this.state.fullName
+      name: this.state.name
     };
 
     this.props.signup(user);
@@ -59,55 +58,50 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="splash-form-container">
+        <img className="wallpaper" src={Wallpaper} alt="session-wallpaper" />
         <div className="session-outer">
-          <img src="https://outfittr-assets.s3.amazonaws.com/outfittr-logo-v3.png" alt="Outfittr Logo" className='form-logo' />
-          <h2>Welcome To Outfittr!</h2>
-        {/* <Link to="/splash">
+          <h2>Welcome To PiperHood!</h2>
+          {/* <Link to="/splash">
           <button>Log In</button>
         </Link> */}
-        <form onSubmit={this.handleSubmit}>
-          <div className="session-form">
-            <input type="text"
-              value={this.state.fullName}
-              onChange={this.update('fullName')}
-              placeholder="Full Name"
-            />
-            <br />
-            <input type="text"
-              value={this.state.email}
-              onChange={this.update('email')}
-              placeholder="Email"
-            />
-            <br />
-            <input type="text"
-              value={this.state.username}
-              onChange={this.update('username')}
-              placeholder="Username"
-            />
-            <br />
-            <input type="password"
-              value={this.state.password}
-              onChange={this.update('password')}
-              placeholder="Password"
-            />
-            <br />
-            <input type="password"
-              value={this.state.password2}
-              onChange={this.update('password2')}
-              placeholder="Confirm password"
-            />
-            <br/>
-              <input type="submit" value="Sign Up" />
+          <form onSubmit={this.handleSubmit}>
+            <div className="session-form">
+              <p>Full Name</p>
+              <input type="text"
+                value={this.state.name}
+                onChange={this.update('name')}
+              />
+              <br />
+              <p>Email</p>
+              <input type="text"
+                value={this.state.email}
+                onChange={this.update('email')}
+              />
+              <br />
+              <p>Password</p>
+              <input type="password"
+                value={this.state.password}
+                onChange={this.update('password')}
+              />
+              <br />
+              <p>Confirm Password</p>
+              <input type="password"
+                value={this.state.password2}
+                onChange={this.update('password2')}
+
+              />
+              <br />
+              <input type="submit" value="Sign Up" className="Sign-up-button" />
               <div className="error-list">
                 {this.renderErrors()}
               </div>
-          </div>
-        </form>
+            </div>
+          </form>
           <div className="switch-form-link">
-            <br/>
-            <p>Already have an account? <Link to="/signin">Sign in</Link></p>
+            <br />
+            <p>Already have an account? <Link className="sign-in-link" to="/signin">Sign in</Link></p>
           </div>
-      </div>
+        </div>
       </div>
     );
   }
