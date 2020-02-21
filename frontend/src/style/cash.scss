@@ -24,7 +24,7 @@
 
 .cash-container {
     margin-left: 40px;
-    margin-top: 10%;
+    
 }
 
 .search-result-item {
@@ -37,7 +37,7 @@
     background-color: #41414c;
     width: 188px;
     border-radius: 3px;
-    top: 293px;
+    top: 150px;
 }
 
 .search-result-item:hover {
@@ -52,3 +52,19 @@
     font-size: 25px;
 }
 
+.form-cont {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-class {
+    display: flex;
+    flex-direction: row;
+}
+
+.company-name-text {
+    color: white;
+    font-weight: bold;
+    font-size: 32px;
+    margin-top: 15px;
+}

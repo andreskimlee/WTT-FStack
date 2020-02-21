@@ -1,12 +1,12 @@
 import React from 'react';
-import axios from 'axios';
 
 class Cash extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             searchTerm: "",
-            result: null
+            result: null,
+            company: null
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -21,6 +21,15 @@ class Cash extends React.Component {
             })
     }
 
+    findCompany = val => {
+        fetch(`https://sandbox.iexapis.com/stable/stock/${val}/quote?token=Tpk_545c7b20d4af458da7672e78f265003a`)
+            .then(res => {
+                return res.json();
+            }).then(res => {
+                this.setState({ company: res });
+            })
+    }
+
     handleChange(e) { // Event listener for any change a search is triggered (API call) 
         if (e.currentTarget.value.length === 0) {
             this.setState({ result: null })
@@ -31,8 +40,8 @@ class Cash extends React.Component {
 
     handleClick(val) { // if the user clicks on one of the results, 
         //  it sets the input value to the company and clears the previous search result.
-
         this.setState({ searchTerm: val, result: null })
+        this.findCompany(val)
     }
 
     moneyFormat(price, sign = '$') { // formats the user's available funds. 
@@ -46,6 +55,10 @@ class Cash extends React.Component {
 
 
     render() {
+        let companyName, latestPrice;
+        if (this.state.company) {
+            companyName = this.state.company.companyName
+        }
         let searchResult;
         if (this.state.result) { // ensures results of search only show when a valid search is applied
             searchResult = this.state.result.map((company, idx) => {
@@ -60,16 +73,19 @@ class Cash extends React.Component {
         return (
             <div className="cash-container">
                 <div className="cash-available-text">Available Cash - {funds}</div>
-                <form>
-                    <input className="ticker-search-1" type="text" value={this.state.searchTerm} placeholder="Ticker" onChange={e => this.handleChange(e)} />
-                    <div className="search-res-cont">
-                        {searchResult}
+                <form className="form-cont">
+                    <div className="input-class">
+                        <input className="ticker-search-1" type="text" value={this.state.searchTerm} placeholder="Ticker" onChange={e => this.handleChange(e)} />
+                        <div className="search-res-cont">
+                            {searchResult}
+                        </div>
+                        <input className="ticker-search-2" type="text" placeholder="Qty" />
                     </div>
-                    <input className="ticker-search-2" type="text" placeholder="Qty" />
-                    <input type="submit" value="buy" />
-                </form>
 
-            </div>
+                </form>
+                <div className="company-name-text">{companyName}</div>
+
+            </div >
         )
     }
 }

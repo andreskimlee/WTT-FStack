@@ -16,13 +16,20 @@
     #aa {
         font-weight: 500;
         margin: 10px;
+        border-right: 1px solid grey;
+        padding-right: 13px;
     }
+
     .sign-out {
-        background-color: #20ce9a;
+        background-color: #1e795d;
         color: white;
         border: none;
         border-radius: 5px;
         font-size: 12px;
+    }
+    .sign-out:hover {
+        cursor: pointer;
+        background-color: #2fac86;
     }
 }
 
