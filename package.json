@@ -1,0 +1,39 @@
+{
+  "name": "Full-Stack-TBD",
+  "version": "1.0.0",
+  "description": "Full-Stack-Clone",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "server:debug": "nodemon --inspect server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreskimlee/MERN-Fullstack.git"
+  },
+  "author": "JAJWAG",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreskimlee/MERN-Fullstack/issues"
+  },
+  "homepage": "https://github.com/andreskimlee/MERN-Fullstack#readme",
+  "dependencies": {
+    "aws-sdk": "^2.569.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "font-awesome": "^4.7.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.8.6",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "validator": "^12.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
