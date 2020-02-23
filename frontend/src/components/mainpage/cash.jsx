@@ -1,6 +1,7 @@
 import React from 'react';
 import StockGraph from './stock_graph_container'
 import 'odometer/themes/odometer-theme-default.css';
+import Odometer from 'react-odometerjs'
 
 class Cash extends React.Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class Cash extends React.Component {
             .then(res => {
                 return res.json();
             }).then(res => {
-                debugger
+
                 this.setState({ result: res });
             })
     }
@@ -34,7 +35,7 @@ class Cash extends React.Component {
                 return res.json();
             }).then(res => {
                 this.setState({ company: res, price: res.latestPrice, symbol: val });
-                debugger
+
             })
         fetch(`https://sandbox.iexapis.com/stable/stock/${val}/chart/1m?token=Tpk_545c7b20d4af458da7672e78f265003a`)
             .then(res => {
@@ -108,10 +109,12 @@ class Cash extends React.Component {
                 )
             })
         }
-        let funds = this.moneyFormat(this.props.currentUser.funds)
+        debugger
+        let funds = this.props.user.funds
+        console.log(funds)
         return (
             <div className="cash-container">
-                <div className="cash-available-text">Available Cash - {funds}</div>
+                <div className="cash-available-text">Available Cash - $<Odometer duration={300} value={funds}></Odometer></div>
                 <form className="form-cont">
                     <div className="input-class">
                         <input className="ticker-search-1" type="text" value={this.state.searchTerm} placeholder="Search Stock By Ticker" onChange={e => this.handleChange(e)} />

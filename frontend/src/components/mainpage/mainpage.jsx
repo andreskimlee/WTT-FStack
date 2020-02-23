@@ -15,6 +15,8 @@ class MainPage extends React.Component {
         this.props.logout();
     }
 
+
+
     render() {
 
         return (

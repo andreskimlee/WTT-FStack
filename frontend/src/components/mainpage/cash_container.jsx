@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 const msp = (state, ownProps) => {
     return {
-        currentUser: state.session.user
+        user: state.entities.users
     };
 };
 

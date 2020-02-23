@@ -5,15 +5,26 @@ import {
   REMOVE_USER
 } from '../actions/user_actions';
 
+import {
+  RECEIVE_CURRENT_USER
+} from '../actions/session_actions'
+
+import {
+  RECEIVE_TRANSACTION
+} from '../actions/transaction_action'
+
 const UsersReducer = (state = {}, action) => {
   Object.freeze(state);
   switch (action.type) {
-    case RECEIVE_USER:
-      return merge({}, state, { [action.user.data._id]: action.user.data });
+    case RECEIVE_CURRENT_USER:
+      return merge({}, action.currentUser, state)
     case REMOVE_USER:
       let newState = Object.merge({}, state);
       delete newState[action.user.data.id];
       return newState;
+    case RECEIVE_TRANSACTION:
+      debugger
+      return action.transaction.data
     default:
       return state;
   }

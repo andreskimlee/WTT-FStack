@@ -2,5 +2,5 @@ import axios from "axios";
 
 
 export const createTrans = (transaction) => {
-    return axios.get(`/api/transactions/`, transaction);
+    return axios.post(`/api/transactions`, transaction);
 };

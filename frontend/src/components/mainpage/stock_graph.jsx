@@ -70,8 +70,9 @@ class StockGraph extends React.Component {
             amount: this.state.originalPrice,
             stockCount: this.state.Qty,
             transactionType: "buy",
-            symbol: this.props.company
+            symbol: this.state.symbol
         }
+
         this.props.createTransaction(transaction)
     }
 
@@ -80,7 +81,7 @@ class StockGraph extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        console.log(this.props.currentUser)
         const stockInfo = this.renderStockInfo()
         return (
             <div>
