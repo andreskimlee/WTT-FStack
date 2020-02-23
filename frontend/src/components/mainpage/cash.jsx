@@ -118,7 +118,6 @@ class Cash extends React.Component {
         }
         debugger
         let funds = this.props.user.funds
-        console.log(funds)
         return (
             <div className="cash-container">
                 <div className="cash-available-text">Available Cash - $<Odometer duration={300} value={funds}></Odometer></div>

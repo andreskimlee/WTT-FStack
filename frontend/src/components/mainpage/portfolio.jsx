@@ -14,7 +14,17 @@ class Portfolio extends React.Component {
         })
     }
 
-
+    findCompany = async val => {
+        let latestPrice;
+        await fetch(`https://sandbox.iexapis.com/stable/stock/${val}/quote?token=Tpk_545c7b20d4af458da7672e78f265003a`)
+            .then(res => {
+                return res.json();
+            }).then(res => {
+                debugger
+                latestPrice = res.latestPrice;
+            })
+        return latestPrice
+    }
 
     render() {
         let aggregatedStocks = {}
@@ -32,13 +42,21 @@ class Portfolio extends React.Component {
             })
         }
         let portfolioStocks = Object.keys(aggregatedStocks).map(symbol => {
+            let livePrice;
+            this.findCompany(symbol).then(res => livePrice = res)
+
             return (
                 <div className="stock-info-port">
                     <div>{symbol}</div>
                     <div>{aggregatedStocks[symbol].count + " " + "shares"}</div>
+                    <div>{livePrice ? livePrice : ""}</div>
                 </div>
             )
         })
+
+
+
+
         return (
             <div className="portfolio-container">
                 <div>{portfolioStocks}</div>
