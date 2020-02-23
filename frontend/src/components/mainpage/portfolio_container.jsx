@@ -4,9 +4,10 @@ import { withRouter } from 'react-router-dom'
 import { fetchAllTrans } from '../../actions/transaction_action'
 
 const msp = (state, ownProps) => {
+    debugger
     return {
-        currentUser: state.session.user
-
+        currentUser: state.session.user,
+        transactions: Object.values(state.entities.transactions)
     };
 };
 

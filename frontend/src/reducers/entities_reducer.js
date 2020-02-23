@@ -5,7 +5,7 @@ import TransactionsReducer from './transactions_reducer'
 
 const EntitiesReducer = combineReducers({
     users: UsersReducer,
-    TransactionsReducer
+    transactions: TransactionsReducer
 });
 
 export default EntitiesReducer;
