@@ -4,20 +4,22 @@ const Transaction = require("../../models/Transaction");
 const passport = require("passport");
 
 router.post("/",
-  passport.authenticate("jwt", { session: false }), // s they are logged in to post request (Buy / sell stock) 
+  passport.authenticate("jwt", { session: false }), // when they are logged in to post request (Buy / sell stock) 
   (req, res) => {
 
+    debugger
 
-
-    const newPost = new Post({
+    const newTransaction = new Transaction({
       user: req.user.id,
-      caption: req.body.caption,
-      photoURL: req.body.photoURL
+      amount: req.body.amount,
+      symbol: req.body.symbol,
+      stock_count: req.body.stockCount,
+      transaction_type: req.body.transactionType,
     })
 
-    newPost
+    newTransaction
       .save()
-      .then(post => res.json(post));
+      .then(transaction => res.json(transaction));
   })
 
 module.exports = router;
