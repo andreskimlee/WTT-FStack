@@ -18,6 +18,13 @@ class Cash extends React.Component {
         this.getCompanyName = this.getCompanyName.bind(this);
     }
 
+    componentDidMount() {
+        debugger
+        if (this.props.currentUser && Object.values(this.props.user).length < 1) {
+            this.props.fetchUser(this.props.currentUser.id)
+        }
+    }
+
     // This function's job is to fetch the search results given the specified query. (For Live Search)
     search = async val => {
         fetch(`https://sandbox.iexapis.com/stable/search/${val}?token=Tsk_536efa1336e94441beb5f27e888e3721`)

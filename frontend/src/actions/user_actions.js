@@ -8,15 +8,6 @@ const receiveUser = (user) => ({
   user
 });
 
-const removeUser = (userId) => ({
-  type: REMOVE_USER,
-  userId
-});
-
-export const deleteUser = (userId) => dispatch => (
-  APIUtil.deleteUser(userId)
-    .then(user => dispatch(removeUser(userId)))
-);
 
 export const fetchUser = (userId) => dispatch => (
   APIUtil.fetchUser(userId)

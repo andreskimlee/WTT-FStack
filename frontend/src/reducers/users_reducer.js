@@ -18,10 +18,8 @@ const UsersReducer = (state = {}, action) => {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       return merge({}, action.currentUser, state)
-    case REMOVE_USER:
-      let newState = Object.merge({}, state);
-      delete newState[action.user.data.id];
-      return newState;
+    case RECEIVE_USER:
+      return action.user.data
     case RECEIVE_TRANSACTION:
       debugger
       return action.transaction.data
