@@ -1,5 +1,5 @@
 import React from 'react';
-import Portfolio from "./portfolio"
+import Portfolio from "./portfolio_container"
 import Cash from "./cash_container"
 import { Link } from "react-router-dom"
 

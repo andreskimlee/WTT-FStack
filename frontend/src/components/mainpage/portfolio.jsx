@@ -5,6 +5,11 @@ class Portfolio extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        debugger
+        this.props.fetchAllTrans(this.props.currentUser.id)
+    }
+
 
     render() {
 
