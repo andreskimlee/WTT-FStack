@@ -6,20 +6,33 @@ const passport = require("passport");
 router.post("/",
   passport.authenticate("jwt", { session: false }), // when they are logged in to post request (Buy / sell stock) 
   (req, res) => {
+    console.log("hello")
 
-    debugger
 
     const newTransaction = new Transaction({
-      user: req.user.id,
+      user: req.body.user.id,
       amount: req.body.amount,
       symbol: req.body.symbol,
       stock_count: req.body.stockCount,
       transaction_type: req.body.transactionType,
     })
+    User.findById(req.body.user.id).then(user => {
+      user.funds -= (req.body.stockCount * req.body.amount);
+      user.save().then(user => res.json({
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        funds: user.funds
+      }));
+    })
 
     newTransaction
       .save()
-      .then(transaction => res.json(transaction));
+  })
+
+router.get("/", passport.authenticate("jwt", { session: false }), // when they are logged in to post request (Buy / sell stock) 
+  (req, res) => {
+
   })
 
 module.exports = router;
