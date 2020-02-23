@@ -1,4 +1,6 @@
 import React from 'react';
+import StockGraph from './stock_graph_container'
+import 'odometer/themes/odometer-theme-default.css';
 
 class Cash extends React.Component {
     constructor(props) {
@@ -6,9 +8,13 @@ class Cash extends React.Component {
         this.state = {
             searchTerm: "",
             result: null,
-            company: null
+            company: null,
+            history: null,
+            price: null,
+            symbol: null
         }
         this.handleClick = this.handleClick.bind(this);
+        this.getCompanyName = this.getCompanyName.bind(this);
     }
 
     // This function's job is to fetch the search results given the specified query. (For Live Search)
@@ -17,6 +23,7 @@ class Cash extends React.Component {
             .then(res => {
                 return res.json();
             }).then(res => {
+                debugger
                 this.setState({ result: res });
             })
     }
@@ -26,7 +33,14 @@ class Cash extends React.Component {
             .then(res => {
                 return res.json();
             }).then(res => {
-                this.setState({ company: res });
+                this.setState({ company: res, price: res.latestPrice, symbol: val });
+                debugger
+            })
+        fetch(`https://sandbox.iexapis.com/stable/stock/${val}/chart/1m?token=Tpk_545c7b20d4af458da7672e78f265003a`)
+            .then(res => {
+                return res.json();
+            }).then(res => {
+                this.setState({ history: res });
             })
     }
 
@@ -53,18 +67,43 @@ class Cash extends React.Component {
         return sign + pieces.join('')
     }
 
+    getCompanyName = async symbol => {
+        let companyName;
+        await fetch(`https://sandbox.iexapis.com/stable/stock/${symbol}/quote?token=Tpk_545c7b20d4af458da7672e78f265003a`)
+            .then(res => {
+                return res.json();
+            }).then(res => {
+                companyName = res.companyName
+            }).then(() => {
+                return companyName
+            })
+
+    }
+
 
     render() {
-        let companyName, latestPrice;
+        let companyName;
+        let companyInfo;
         if (this.state.company) {
             companyName = this.state.company.companyName
+            companyInfo = <div className="abc-dd">
+                <div className="company-name-text">{companyName}</div>
+
+                <StockGraph data={this.state.history} symbol={this.state.symbol} currPrice={this.state.price} />
+            </div>
+
         }
+
+
         let searchResult;
         if (this.state.result) { // ensures results of search only show when a valid search is applied
             searchResult = this.state.result.map((company, idx) => {
                 return (
-
-                    <div onClick={() => this.handleClick(company.symbol)} className="search-result-item" key={idx}>{company.symbol}</div>
+                    <div onClick={() => this.handleClick(company.symbol)}
+                        className="search-result-item"
+                        key={idx}>
+                        {company.symbol}
+                    </div>
 
                 )
             })
@@ -75,16 +114,15 @@ class Cash extends React.Component {
                 <div className="cash-available-text">Available Cash - {funds}</div>
                 <form className="form-cont">
                     <div className="input-class">
-                        <input className="ticker-search-1" type="text" value={this.state.searchTerm} placeholder="Ticker" onChange={e => this.handleChange(e)} />
+                        <input className="ticker-search-1" type="text" value={this.state.searchTerm} placeholder="Search Stock By Ticker" onChange={e => this.handleChange(e)} />
                         <div className="search-res-cont">
                             {searchResult}
                         </div>
-                        <input className="ticker-search-2" type="text" placeholder="Qty" />
+
                     </div>
 
                 </form>
-                <div className="company-name-text">{companyName}</div>
-
+                {companyInfo}
             </div >
         )
     }

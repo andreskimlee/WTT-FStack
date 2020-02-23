@@ -7,6 +7,7 @@ $dark-blue: #071e3d;
 
 .splash-form-container {
     display: flex;
+    height: 100%;
 }
 
 .error-list {
@@ -34,7 +35,9 @@ $dark-blue: #071e3d;
 }
 
 .wallpaper {
-    width: 50%
+    width: 50%;
+    min-height: 100%;
+    background-size: 100%, 100%;
 }
 
 .session-outer {
@@ -42,6 +45,7 @@ $dark-blue: #071e3d;
     display: flex;
     flex-direction: column;
 }
+
 
 
 
