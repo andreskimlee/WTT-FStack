@@ -30,8 +30,10 @@ router.post("/",
       .save()
   })
 
-router.get("/", passport.authenticate("jwt", { session: false }), // when they are logged in to post request (Buy / sell stock) 
+router.get("/:userId", passport.authenticate("jwt", { session: false }), // when they are logged in to post request (Buy / sell stock) 
   (req, res) => {
+    debugger
+    Transaction.find({ user: req.params.userId }).then(transactions => res.json(transactions))
 
   })
 
