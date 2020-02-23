@@ -4,7 +4,8 @@ class Portfolio extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            allTransactions: null
+            allTransactions: null,
+            livePrices: null,
         }
     }
 
@@ -14,20 +15,22 @@ class Portfolio extends React.Component {
         })
     }
 
-    findCompany = async val => {
-        let latestPrice;
-        await fetch(`https://sandbox.iexapis.com/stable/stock/${val}/quote?token=Tpk_545c7b20d4af458da7672e78f265003a`)
+    // this function returns the quotes for all stocks in your portfolio in a batch call in order to get 
+    // latest stock prices. 
+    findMultipleCompanies = arr => {
+        arr = arr.join(",")
+        fetch(`https://sandbox.iexapis.com/v1/stock/market/batch?types=quote&symbols=${arr}&range=5y%20&token=Tpk_545c7b20d4af458da7672e78f265003a`)
             .then(res => {
                 return res.json();
             }).then(res => {
-                debugger
-                latestPrice = res.latestPrice;
+                this.setState({ livePrices: res })
             })
-        return latestPrice
+
     }
 
     render() {
         let aggregatedStocks = {}
+        debugger
         if (this.state.allTransactions !== null) {
             this.state.allTransactions.map(stock => {
                 if (!aggregatedStocks[stock.symbol]) {
@@ -41,25 +44,38 @@ class Portfolio extends React.Component {
                 }
             })
         }
-        let portfolioStocks = Object.keys(aggregatedStocks).map(symbol => {
-            let livePrice;
-            this.findCompany(symbol).then(res => livePrice = res)
+        // instead of sending the symbol, send an array to the function and return the live prices of all companies
+        // and use batch for IEX API.
+        let portfolioStocks;
+        if (Object.values(aggregatedStocks).length >= 1) {
+            portfolioStocks = Object.keys(aggregatedStocks)
+            this.findMultipleCompanies(portfolioStocks)
+        }
+        let portfolioContent;
+        if (this.state.livePrices) {
+            portfolioContent = portfolioStocks.map(symbol => {
+                let pricePurchased = aggregatedStocks[symbol].amount
+                let currPrice = this.state.livePrices[symbol].quote.latestPrice
+                let shares = aggregatedStocks[symbol].count
+                let openPrice = this.state.livePrices[symbol].quote.open
+                if (currPrice < openPrice) {
 
-            return (
-                <div className="stock-info-port">
-                    <div>{symbol}</div>
-                    <div>{aggregatedStocks[symbol].count + " " + "shares"}</div>
-                    <div>{livePrice ? livePrice : ""}</div>
-                </div>
-            )
-        })
-
-
-
+                }
+                return (
+                    <div>
+                        <div>{symbol}</div>
+                        <div>{aggregatedStocks[symbol].count}</div>
+                        <div>{pricePurchased}</div>
+                        <div>Profit = {(shares * currPrice) - pricePurchased}</div>
+                        <div>{currPrice}</div>
+                    </div>
+                )
+            })
+        }
 
         return (
             <div className="portfolio-container">
-                <div>{portfolioStocks}</div>
+                <div>{portfolioContent}</div>
             </div>
         )
     }
