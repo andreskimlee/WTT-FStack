@@ -134,36 +134,6 @@ router.get('/:userId', passport.authenticate('jwt', { session: false }), (req, r
 
 
 
-router.get(`/search`, function (req, res) {
-  return User.find({ username: { $regex: "^" + req.query.user_input } }).then(user => res.json(user))
-})
 
-// User Follow
-router.post("/user/:user_id/follow-user", passport.authenticate("jwt", { session: false }), (req, res) => {
-
-  // Check if the requested user and :user_id is same, return error and status 400
-  if (req.user.id === req.params.user_id) {
-    return res.status(400).json({ alreadyfollow: "You cannot follow yourself" });
-  }
-
-  // Check if the requested user is already in follower list of other user
-  User.findById(req.params.user_id)
-    .then(user => {
-      if (user.followers.filter(follower =>
-        follower.user.toString() === req.user.id).length > 0) {
-        return res.status(400).json({ alreadyfollow: "You are already following this user" });
-      }
-
-      // If not already following, push user object with value of the user's ID and save user
-      user.followers.push({ user: req.user.id });
-      user.save();
-      User.findOne({ email: req.user.email })
-        .then(user => {
-          user.following.push({ user: req.params.user_id });
-          user.save().then(user => res.json(user));
-        })
-        .catch(err => res.status(404).json({ alreadyfollow: "you are already following this user" }));
-    });
-});
 
 module.exports = router;
