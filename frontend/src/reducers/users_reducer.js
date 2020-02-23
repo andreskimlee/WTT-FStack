@@ -21,7 +21,6 @@ const UsersReducer = (state = {}, action) => {
     case RECEIVE_USER:
       return action.user.data
     case RECEIVE_TRANSACTION:
-      debugger
       return action.transaction.data
     default:
       return state;

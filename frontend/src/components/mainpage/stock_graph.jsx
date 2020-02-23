@@ -15,14 +15,13 @@ class StockGraph extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (prevProps.currPrice !== this.props.currPrice) {
-            this.setState({ price: this.props.currPrice, originalPrice: this.props.currPrice })
+            this.setState({ price: this.props.currPrice, originalPrice: this.props.currPrice, symbol: this.props.symbol })
         }
     }
 
     customTooltip({ payload }) {
 
         if (payload.length > 0) {
-            console.log(payload[0].payload.date)
             return (
                 <div className="graph-tooltip">
                     {payload[0].payload.date}
@@ -81,7 +80,7 @@ class StockGraph extends React.Component {
     }
 
     render() {
-        console.log(this.props.currentUser)
+
         const stockInfo = this.renderStockInfo()
         return (
             <div>

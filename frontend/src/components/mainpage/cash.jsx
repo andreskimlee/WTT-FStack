@@ -19,7 +19,6 @@ class Cash extends React.Component {
     }
 
     componentDidMount() {
-        debugger
         if (this.props.currentUser && Object.values(this.props.user).length < 1) {
             this.props.fetchUser(this.props.currentUser.id)
         }
@@ -116,7 +115,7 @@ class Cash extends React.Component {
                 )
             })
         }
-        debugger
+
         let funds = this.props.user.funds
         return (
             <div className="cash-container">

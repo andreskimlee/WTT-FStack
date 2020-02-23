@@ -15,6 +15,12 @@ class Portfolio extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.transactions.length !== this.props.transactions.length) {
+            this.setState({ allTransactions: this.props.transactions })
+        }
+    }
+
     // this function returns the quotes for all stocks in your portfolio in a batch call in order to get 
     // latest stock prices. 
     findMultipleCompanies = arr => {
@@ -30,7 +36,7 @@ class Portfolio extends React.Component {
 
     render() {
         let aggregatedStocks = {}
-        debugger
+
         if (this.state.allTransactions !== null) {
             this.state.allTransactions.map(stock => {
                 if (!aggregatedStocks[stock.symbol]) {
