@@ -1,4 +1,45 @@
 import React from 'react';
+import { PieChart, Pie, Sector, Cell, Tooltip } from 'recharts'
+
+const COLORS = ["#17b3c1", "#47d6b6", "#bff8d4", "#2794eb"]
+const RADIAN = Math.PI / 180;
+
+
+const renderActiveShape = (props) => {
+    const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
+        fill, payload, percent, value, label } = props;
+
+    return (
+        <g>
+            <Sector
+                cx={cx}
+                cy={cy}
+                innerRadius={innerRadius}
+                outerRadius={outerRadius + 15}
+                startAngle={startAngle}
+                endAngle={endAngle}
+                fill={fill}
+                label={renderCustomizedLabel}
+            />
+        </g>
+    );
+};
+
+const renderCustomizedLabel = ({
+    cx, cy, midAngle, innerRadius, outerRadius, percent, index,
+}) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+            {`${(percent * 100).toFixed(0)}%`}
+        </text>
+    );
+};
+
+
 
 class Portfolio extends React.Component {
     constructor(props) {
@@ -6,8 +47,11 @@ class Portfolio extends React.Component {
         this.state = {
             allTransactions: null,
             livePrices: null,
-            aggregatedStocks: null
+            aggregatedStocks: null,
+            activeIndex: null,
+            counter: 0
         }
+
     }
 
     componentDidMount() {
@@ -16,10 +60,25 @@ class Portfolio extends React.Component {
         })
     }
 
+    moneyFormat(price, sign = '$') { // formats the user's available funds. 
+        const pieces = parseFloat(price).toFixed(2).split('')
+        let ii = pieces.length - 3
+        while ((ii -= 3) > 0) {
+            pieces.splice(ii, 0, ',')
+        }
+        return sign + pieces.join('')
+    }
+
     componentDidUpdate(prevProps) {
         if (prevProps.transactions.length !== this.props.transactions.length) {
             this.setState({ allTransactions: this.props.transactions })
         }
+    }
+
+    onPieEnter(data, index) {
+        this.setState({
+            activeIndex: index,
+        });
     }
 
     // this function returns the quotes for all stocks in your portfolio in a batch call in order to get 
@@ -34,8 +93,22 @@ class Portfolio extends React.Component {
 
     }
 
+    renderTooltip({ payload }) {
+        debugger
+        if (payload.length > 0) {
+            debugger
+            return (
+                <div className="graph-tooltip-cont">
+                    <div className="tooltip-symbol">{payload[0].payload.symbol}</div>
+                    <div>{((payload[0].payload.totalVal / this.state.counter) * 100).toFixed(2) + "%"}</div>
+                </div>
+            )
+        }
+
+    }
     render() {
         let aggregatedStocks = {}
+        let data = []
         let portfolioContent;
         if (this.state.allTransactions !== null) {
             this.state.allTransactions.map(stock => {
@@ -57,9 +130,8 @@ class Portfolio extends React.Component {
             portfolioStocks = Object.keys(aggregatedStocks)
             this.findMultipleCompanies(portfolioStocks)
         }
+        this.state.counter = 0
 
-        let counter = 0;
-        debugger
         if (this.state.livePrices && Object.keys(this.state.livePrices).length === Object.keys(aggregatedStocks).length) {
             portfolioContent = portfolioStocks.map((symbol, idx) => {
                 let color;
@@ -74,7 +146,7 @@ class Portfolio extends React.Component {
                 let shares = aggregatedStocks[symbol].count
                 let Profit = (shares * currPrice) - pricePurchased
                 let currVal = (currPrice * shares)
-                counter += currVal
+                this.state.counter += currVal
                 if (Profit < 0) {
                     color = 'red'
                     direction = "down"
@@ -85,6 +157,8 @@ class Portfolio extends React.Component {
                     color = 'grey'
                     direction = 'right'
                 }
+
+                data.push({ totalVal: currVal, symbol: symbol })
                 return (
                     <div key={idx} className="portfolio-stock-info-cont">
                         <div>{symbol}</div>
@@ -94,7 +168,7 @@ class Portfolio extends React.Component {
                             ${(currPrice * shares).toFixed(2)}
                             <div className="price-direction">
                                 <div>({Profit.toFixed(2)})</div>
-                                <div class={`arrow-${direction}`}></div>
+                                <div className={`arrow-${direction}`}></div>
                             </div>
                         </div>
 
@@ -104,17 +178,40 @@ class Portfolio extends React.Component {
         } else {
             this.findMultipleCompanies(Object.keys(aggregatedStocks))
         }
-
+        console.log(data)
         return (
             <div className="portfolio-container">
-                <div className="port-val-total-text">Portfolio (${counter.toFixed(2)})</div>
-                <div className="column-names-cont">
-                    <div>symbol</div>
-                    <div>company</div>
-                    <div>shares</div>
-                    <div>value</div>
+                <div className="port-val-total-text">Portfolio (<div className="money-counter">{this.moneyFormat(this.state.counter)}</div>)</div>
+                <div className="port-2-cont">
+                    <PieChart width={720} height={360}>
+                        <Pie
+                            activeIndex={this.state.activeIndex}
+                            activeShape={renderActiveShape}
+                            data={data}
+                            labelLine={false}
+                            cx={360}
+                            cy={150}
+                            innerRadius={110}
+                            outerRadius={140}
+
+                            dataKey="totalVal"
+                            onMouseEnter={this.onPieEnter.bind(this)}
+                        >
+                            {
+                                data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                            }
+
+                        </Pie>
+                        <Tooltip content={this.renderTooltip.bind(this)} />
+                    </PieChart>
+                    <div className="column-names-cont">
+                        <div>symbol</div>
+                        <div>company</div>
+                        <div>shares</div>
+                        <div>value</div>
+                    </div>
+                    <div>{portfolioContent}</div>
                 </div>
-                <div>{portfolioContent}</div>
             </div>
         )
     }

@@ -19,17 +19,6 @@ class StockGraph extends React.Component {
         }
     }
 
-    customTooltip({ payload }) {
-
-        if (payload.length > 0) {
-            return (
-                <div className="graph-tooltip">
-                    {payload[0].payload.date}
-                </div>
-            )
-        }
-
-    }
 
     handleMouseMove(e) {
         if (e.activePayload !== undefined) {

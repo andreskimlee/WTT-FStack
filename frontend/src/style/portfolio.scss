@@ -2,8 +2,7 @@
     color: white; 
     width: 50%;
     border-right: 1px solid grey;
-    height: 600px;
-    overflow: scroll;
+    
 }
 
 .stock-info-port {
@@ -42,6 +41,7 @@
     font-size: 30px;
     margin-left: 10%;
     margin-bottom: 5%;
+    display: flex;
 }
 
 .currPrice-green {
@@ -96,4 +96,30 @@
 
 .currPrice-grey {
     color: grey;
+}
+
+.pie-container {
+    width: 500px;
+    height: 500px;
+}
+
+.graph-tooltip-cont {
+    display: flex;
+    background-color: #343435;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.graph-tooltip-cont > div {
+    margin-left: 10px; 
+}
+
+.tooltip-symbol {
+    font-weight: bold;
+}
+
+.port-2-cont {
+    overflow: scroll;
+    height: 600px;
 }
