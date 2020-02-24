@@ -62,28 +62,42 @@ class Portfolio extends React.Component {
         debugger
         if (this.state.livePrices && Object.keys(this.state.livePrices).length === Object.keys(aggregatedStocks).length) {
             portfolioContent = portfolioStocks.map((symbol, idx) => {
-
+                let color;
                 let currPrice;
                 let openPrice;
                 let companyName;
+                let direction;
                 let pricePurchased = aggregatedStocks[symbol].amount
                 currPrice = this.state.livePrices[symbol].quote.latestPrice
                 openPrice = this.state.livePrices[symbol].quote.open
                 companyName = this.state.livePrices[symbol].quote.companyName
                 let shares = aggregatedStocks[symbol].count
-
                 let Profit = (shares * currPrice) - pricePurchased
                 let currVal = (currPrice * shares)
                 counter += currVal
-                // if (currPrice < openPrice) {
-
-                // }
+                if (Profit < 0) {
+                    color = 'red'
+                    direction = "down"
+                } else if (Profit > 0) {
+                    color = 'green'
+                    direction = "up"
+                } else if (Profit === 0) {
+                    color = 'grey'
+                    direction = 'right'
+                }
                 return (
                     <div key={idx} className="portfolio-stock-info-cont">
                         <div>{symbol}</div>
                         <div className="company-name-port">{companyName}</div>
                         <div>{shares}</div>
-                        <div>${(currPrice * shares).toFixed(2)}<div>({Profit.toFixed(2)})</div></div>
+                        <div className={`currPrice-${color}`}>
+                            ${(currPrice * shares).toFixed(2)}
+                            <div className="price-direction">
+                                <div>({Profit.toFixed(2)})</div>
+                                <div class={`arrow-${direction}`}></div>
+                            </div>
+                        </div>
+
                     </div>
                 )
             })

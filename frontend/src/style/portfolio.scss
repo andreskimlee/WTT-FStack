@@ -3,6 +3,7 @@
     width: 50%;
     border-right: 1px solid grey;
     height: 600px;
+    overflow: scroll;
 }
 
 .stock-info-port {
@@ -41,4 +42,58 @@
     font-size: 30px;
     margin-left: 10%;
     margin-bottom: 5%;
+}
+
+.currPrice-green {
+    color: rgb(87, 180, 149);
+}
+
+
+
+.currPrice-red {
+    color: rgb(224, 82, 82);
+}
+
+.arrow-up {
+    
+        width: 0;
+        height: 0;
+        margin-top: 3.5px;
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        margin-left: 5px;
+        border-bottom: 8px solid #20ffbc;
+        
+    
+}
+
+.price-direction {
+    display: flex;
+}
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    margin-left: 5px;
+    margin-top: 3.5px;
+    border-top: 8px solid #af5252;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    margin-top: 3.5px;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    
+    border-left: 8px solid #e888a3;
+}
+
+
+.currPrice-grey {
+    color: grey;
 }
