@@ -8,7 +8,7 @@ class StockGraph extends React.Component {
         this.state = {
             price: this.props.currPrice,
             originalPrice: this.props.currPrice,
-            Qty: null,
+            Qty: "",
             symbol: this.props.symbol
         }
     }
@@ -33,6 +33,7 @@ class StockGraph extends React.Component {
 
     handleMouseMove(e) {
         if (e.activePayload !== undefined) {
+            console.log(e.activePayload)
             this.setState({ price: e.activePayload[0].payload.price })
         }
     }

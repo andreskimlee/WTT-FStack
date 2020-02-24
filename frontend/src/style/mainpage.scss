@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     background-color: #1a1a1d;
+    overflow: auto;
     font-family: sans-serif;
     font-weight: 100;
     min-height: 900px;
@@ -42,6 +43,7 @@
 
 .mid-container {
     display: flex;
+    
 }
 
 ::placeholder {
