@@ -4,7 +4,6 @@ import SignUp from './sessions/session_page';
 import SignIn from './sessions/login_form_container';
 import MainPage from './mainpage/mainpage_container'
 import TransactionPage from '../components/mainpage/transactions_container'
-import NavBar from '../components/mainpage/navbar_container'
 const App = (props) => (
 
   <div>

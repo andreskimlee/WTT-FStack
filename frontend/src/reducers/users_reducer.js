@@ -2,7 +2,6 @@ import { merge } from 'lodash'
 
 import {
   RECEIVE_USER,
-  REMOVE_USER
 } from '../actions/user_actions';
 
 import {

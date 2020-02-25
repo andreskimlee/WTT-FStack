@@ -4,11 +4,11 @@ const Key = require('../../config/keys')
 
 const COLORS = ["#17b3c1", "#47d6b6", "#bff8d4", "#2794eb"]
 const RADIAN = Math.PI / 180;
-
+let Counter = 0;
 
 const renderActiveShape = (props) => {
-    const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-        fill, payload, percent, value, label } = props;
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle,
+        fill } = props;
 
     return (
         <g>
@@ -50,7 +50,6 @@ class Portfolio extends React.Component {
             livePrices: null,
             aggregatedStocks: null,
             activeIndex: null,
-            counter: 0
         }
 
     }
@@ -103,7 +102,7 @@ class Portfolio extends React.Component {
             return (
                 <div className="graph-tooltip-cont">
                     <div className="tooltip-symbol">{payload[0].payload.symbol}</div>
-                    <div>{((payload[0].payload.totalVal / this.state.counter) * 100).toFixed(2) + "%"}</div>
+                    <div>{((payload[0].payload.totalVal / Counter) * 100).toFixed(2) + "%"}</div>
                 </div>
             )
         }
@@ -115,7 +114,7 @@ class Portfolio extends React.Component {
         let portfolioContent;
         let emptyOrTrue;
         if (this.state.allTransactions !== null) {
-            this.state.allTransactions.map(stock => {
+            this.state.allTransactions.forEach(stock => {
                 if (!aggregatedStocks[stock.symbol]) {
                     aggregatedStocks[stock.symbol] = {
                         count: stock.stock_count,
@@ -134,23 +133,23 @@ class Portfolio extends React.Component {
             portfolioStocks = Object.keys(aggregatedStocks)
             this.findMultipleCompanies(portfolioStocks)
         }
-        this.state.counter = 0
+        Counter = 0
 
         if (this.state.livePrices && Object.keys(this.state.livePrices).length === Object.keys(aggregatedStocks).length) {
             portfolioContent = portfolioStocks.map((symbol, idx) => {
                 let color;
                 let currPrice;
-                let openPrice;
+                // let openPrice;
                 let companyName;
                 let direction;
                 let pricePurchased = aggregatedStocks[symbol].amount
                 currPrice = this.state.livePrices[symbol].quote.latestPrice
-                openPrice = this.state.livePrices[symbol].quote.open
+                // openPrice = this.state.livePrices[symbol].quote.open
                 companyName = this.state.livePrices[symbol].quote.companyName
                 let shares = aggregatedStocks[symbol].count
                 let Profit = (shares * currPrice) - pricePurchased
                 let currVal = (currPrice * shares)
-                this.state.counter += currVal
+                Counter += currVal
                 if (Profit < 0) {
                     color = 'red'
                     direction = "down"
@@ -182,7 +181,7 @@ class Portfolio extends React.Component {
         } else {
             this.findMultipleCompanies(Object.keys(aggregatedStocks))
         }
-        if (this.state.counter !== 0) {
+        if (this.props.currentUser.funds !== 5000) {
             emptyOrTrue = <div className="column-names-cont">
                 <div>symbol</div>
                 <div>company</div>
@@ -194,7 +193,7 @@ class Portfolio extends React.Component {
         }
         return (
             <div className="portfolio-container">
-                <div className="port-val-total-text">Portfolio (<div className="money-counter">{this.moneyFormat(this.state.counter)}</div>)</div>
+                <div className="port-val-total-text">Portfolio (<div className="money-counter">{this.moneyFormat(Counter)}</div>)</div>
                 <div className="port-2-cont">
                     <PieChart width={720} height={360}>
                         <Pie

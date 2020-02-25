@@ -2,9 +2,6 @@ import React from 'react';
 import NavBar from '../mainpage/navbar_container'
 
 class TransactionPage extends React.Component {
-    constructor(props) {
-        super(props)
-    }
 
     componentDidMount() {
         this.props.fetchAllTrans(this.props.currentUser.id).then(() => {
@@ -20,8 +17,8 @@ class TransactionPage extends React.Component {
                     <div className="transaction-detail-text">
                         <div>{transaction.transaction_type.toUpperCase()}</div>
                         <div>({transaction.symbol})</div>
-                        <div>{"-" + " " + transaction.stock_count + " " + "Shares"}</div>
-                        <div>{"@" + " " + transaction.amount}</div>
+                        <div> - {transaction.stock_count + "Shares"}</div>
+                        <div>{"@" + transaction.amount}</div>
                     </div>
                 )
             })

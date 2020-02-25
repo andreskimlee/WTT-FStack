@@ -5,7 +5,6 @@ import {
 
 } from '../actions/session_actions';
 
-import { RECEIVE_TRANSACTION } from '../actions/transaction_action'
 
 const initialState = {
   isAuthenticated: false,

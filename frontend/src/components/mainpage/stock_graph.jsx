@@ -22,7 +22,7 @@ class StockGraph extends React.Component {
 
 
     handleMouseMove(e) {
-        if (e.activePayload !== undefined) {
+        if (e.activePayload) {
             this.setState({ price: e.activePayload[0].payload.price })
         }
     }
@@ -81,7 +81,7 @@ class StockGraph extends React.Component {
         let errors;
         if (Object.keys(this.props.errors).length > 0) {
 
-            Object.keys(this.props.errors).map(key => {
+            Object.keys(this.props.errors).forEach(key => {
                 errors = this.props.errors[key]
             })
 
