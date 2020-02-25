@@ -4,8 +4,12 @@ const transactions = require("./routes/api/transactions");
 const express = require("express"); // initializes and creates server 
 const app = express();
 const port = process.env.PORT || 5000;
-
 const db = process.env.MONGO_URI
+const passport = require('passport');
+
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))

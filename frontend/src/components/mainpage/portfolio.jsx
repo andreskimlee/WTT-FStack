@@ -1,6 +1,7 @@
 import React from 'react';
 import { PieChart, Pie, Sector, Cell, Tooltip } from 'recharts'
-const Key = require('../../config/keys')
+const key = process.env.IEXAPIKey;
+
 
 const COLORS = ["#17b3c1", "#47d6b6", "#bff8d4", "#2794eb"]
 const RADIAN = Math.PI / 180;
@@ -86,7 +87,7 @@ class Portfolio extends React.Component {
     async findMultipleCompanies(arr) {
         if (this.state.livePrices === null || arr.length !== Object.values(this.state.livePrices).length) {
             arr = arr.join(",")
-            const res = await fetch(`https://cloud.iexapis.com/v1/stock/market/batch?types=quote&symbols=${arr}&range=5y%20&token=${Key.IEXAPIKey}`)
+            const res = await fetch(`https://cloud.iexapis.com/v1/stock/market/batch?types=quote&symbols=${arr}&range=5y%20&token=${key}`)
             const res2 = await res.json()
             if (!res2.error) {
                 this.setState({ livePrices: res2 })
