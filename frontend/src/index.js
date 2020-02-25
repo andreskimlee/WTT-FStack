@@ -13,6 +13,7 @@ import './style/session.scss'
 import './style/cash.scss'
 import './style/mainpage.scss'
 import './style/portfolio.scss'
+import './style/transactions.scss'
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;

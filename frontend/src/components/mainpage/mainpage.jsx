@@ -2,6 +2,7 @@ import React from 'react';
 import Portfolio from "./portfolio_container"
 import Cash from "./cash_container"
 import { Link } from "react-router-dom"
+import NavBar from '../../components/mainpage/navbar_container'
 
 class MainPage extends React.Component {
     constructor(props) {
@@ -21,12 +22,7 @@ class MainPage extends React.Component {
 
         return (
             <div className="mainpage-container">
-                <div className="nav-container">
-                    <div id="aa">Welcome! {this.props.currentUser.name}</div>
-                    <Link id="aa" className="text-4-links" to="/transactions">Transactions</Link>
-                    <Link id="aa" className="text-4-links" to="/portfolio">Portfolio</Link>
-                    <input id="aa" type="submit" className="sign-out" onClick={this.handleClick} value="Sign Out" />
-                </div>
+                <NavBar />
                 <div className="mid-container">
                     <Portfolio />
                     <Cash />

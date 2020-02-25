@@ -45,13 +45,13 @@
 }
 
 .currPrice-green {
-    color: rgb(87, 180, 149);
+    color: #20ce9a
 }
 
 
 
 .currPrice-red {
-    color: rgb(224, 82, 82);
+    color: rgb(255, 104, 104);
 }
 
 .arrow-up {
@@ -122,4 +122,13 @@
 .port-2-cont {
     overflow: scroll;
     height: 600px;
+}
+
+.no-stocks-text { 
+    margin-left: 50px;
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+    top: 150px;
+    color: rgb(255, 92, 92);
 }

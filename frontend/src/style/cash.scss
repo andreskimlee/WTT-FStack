@@ -12,6 +12,7 @@
 }
 
 
+
 .cash-container {
     margin-left: 40px;
     width: 44%;
@@ -20,6 +21,8 @@
 .search-result-item {
     color: #20ce9a;
     padding: 10px;
+    border-bottom: 1px solid rgb(87, 87, 87);
+    font-weight: 500;
 }
 
 .search-res-cont {
@@ -29,6 +32,14 @@
     border-radius: 3px;
     top: 150px;
     z-index: 4;
+    
+    box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12)
 }
 
 .search-result-item:hover {
@@ -99,7 +110,12 @@
     width: 45%;
     background-color: rgb(26, 26, 26);
     height: 100px;
+    position: relative;
 }
+
+
+
+
 
 .buy-button {
     
@@ -139,3 +155,34 @@
         font-weight: 600;
     }
 
+
+
+    .errors-container {
+        font-size: 25px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        color: rgb(255, 106, 118);
+        margin: 0;
+        padding: 20px 0 25px 0;
+        transform-origin: 50% 100%;
+        text-shadow: 2px 2px 2px #333;
+         
+        animation-duration: 1s;
+        animation-name: fadeAndScale;
+        animation-timing-function: cubic-bezier(.71,.55,.62,1.57);
+    }
+      
+    @keyframes fadeAndScale {
+        from {
+            opacity: 0;
+            transform: scale(.9, .9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1, 1);
+        }
+    }
+
+.total-calc {
+    margin-top: 10px;
+}

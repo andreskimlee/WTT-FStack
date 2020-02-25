@@ -5,7 +5,8 @@ import { createTransaction } from '../../actions/transaction_action'
 
 const msp = (state, ownProps) => {
     return {
-        currentUser: state.session.user
+        currentUser: state.session.user,
+        errors: state.errors.transaction
     };
 };
 

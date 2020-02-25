@@ -1,0 +1,35 @@
+.transactions-container { 
+    display: flex;
+    background-color: #1a1a1d;
+    flex-direction: column;
+    height: 1000px;
+
+}
+
+.transaction-detail-text {
+    color: white;
+    display: flex;
+     > div {
+        margin-left: 10%;
+    }
+    margin-left: 20%;
+    margin-top: 4%;
+    border-image: linear-gradient(45deg, rgb(172, 255, 207), rgb(2, 107, 90)) 1;
+    border-bottom: 1px solid;
+    width: 500px;
+    padding: 2%;
+    font-family: Orbitron;
+
+}
+
+.transaction-title-text {
+  border-bottom: 2px solid;
+  border-image: linear-gradient(45deg, rgb(0,143,104), rgb(250,224,66)) 1;
+  color: white; 
+  font-weight: bold;
+  font-size: 30px;
+  width: fit-content;
+  padding: 10px;
+  margin-left: 10%;
+  
+}

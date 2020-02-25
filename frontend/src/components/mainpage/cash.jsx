@@ -96,7 +96,7 @@ class Cash extends React.Component {
             companyInfo = <div className="abc-dd">
                 <div className="company-name-text">{companyName}</div>
 
-                <StockGraph data={this.state.history} symbol={this.state.symbol} currPrice={this.state.price} />
+                <StockGraph data={this.state.history} symbol={this.state.symbol} currPrice={this.state.price} funds={this.props.user.funds} />
             </div>
 
         }

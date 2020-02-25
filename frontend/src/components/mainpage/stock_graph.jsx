@@ -9,13 +9,17 @@ class StockGraph extends React.Component {
             price: this.props.currPrice,
             originalPrice: this.props.currPrice,
             Qty: "",
-            symbol: this.props.symbol
+            symbol: this.props.symbol,
+            calculator: 'hide',
+            errors: this.props.errors
         }
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.currPrice !== this.props.currPrice) {
             this.setState({ price: this.props.currPrice, originalPrice: this.props.currPrice, symbol: this.props.symbol })
+        } if (prevProps.errors.amount !== this.props.errors.amount) {
+            this.setState({ errors: this.props.errors })
         }
     }
 
@@ -24,6 +28,14 @@ class StockGraph extends React.Component {
         if (e.activePayload !== undefined) {
             console.log(e.activePayload)
             this.setState({ price: e.activePayload[0].payload.price })
+        }
+    }
+
+    handleFocus(e) {
+        if (e.type === 'focus') {
+            this.setState({ calculator: "show", errors: {} })
+        } else if (e.type === 'blur') {
+            this.setState({ calculator: 'hide' })
         }
     }
 
@@ -70,7 +82,14 @@ class StockGraph extends React.Component {
     }
 
     render() {
+        let errors;
+        if (Object.keys(this.state.errors).length > 0) {
 
+            Object.keys(this.state.errors).map(key => {
+                errors = this.state.errors[key]
+            })
+
+        }
         const stockInfo = this.renderStockInfo()
         return (
             <div>
@@ -111,9 +130,16 @@ class StockGraph extends React.Component {
                         </LineChart>
                     </ResponsiveContainer>
                     <div className="buy-container">
-                        <input onChange={this.handleChange.bind(this)} className="ticker-search-2" type="text" placeholder="Quantity To Buy" value={this.state.Qty} />
+                        <input onFocus={this.handleFocus.bind(this)} onBlur={this.handleFocus.bind(this)} onChange={this.handleChange.bind(this)} className="ticker-search-2" type="text" placeholder="Quantity To Buy" value={this.state.Qty} />
+                        <div className={`calculator-${this.state.calculator}`}>
+                            <div>Price - ${this.props.currPrice}</div>
+                            <div className="share-qty">Shares - <Odometer value={this.state.Qty.length === 0 ? 0 : this.state.Qty} /></div>
+                            <div className="total-calc">Total = $<Odometer value={(this.props.currPrice * this.state.Qty).toFixed(2)} /> </div>
+                        </div>
                         <button onClick={this.buyStock.bind(this)} className="buy-button">Buy</button>
+
                     </div>
+                    <div className='errors-container'>{errors}</div>
                 </div>
             </div>
         )

@@ -88,15 +88,17 @@ class Portfolio extends React.Component {
             arr = arr.join(",")
             const res = await fetch(`https://sandbox.iexapis.com/v1/stock/market/batch?types=quote&symbols=${arr}&range=5y%20&token=Tpk_545c7b20d4af458da7672e78f265003a`)
             const res2 = await res.json()
-            this.setState({ livePrices: res2 })
+            if (!res2.error) {
+                this.setState({ livePrices: res2 })
+            }
         }
 
     }
 
     renderTooltip({ payload }) {
-        debugger
+
         if (payload.length > 0) {
-            debugger
+
             return (
                 <div className="graph-tooltip-cont">
                     <div className="tooltip-symbol">{payload[0].payload.symbol}</div>
@@ -110,6 +112,7 @@ class Portfolio extends React.Component {
         let aggregatedStocks = {}
         let data = []
         let portfolioContent;
+        let emptyOrTrue;
         if (this.state.allTransactions !== null) {
             this.state.allTransactions.map(stock => {
                 if (!aggregatedStocks[stock.symbol]) {
@@ -133,6 +136,7 @@ class Portfolio extends React.Component {
         this.state.counter = 0
 
         if (this.state.livePrices && Object.keys(this.state.livePrices).length === Object.keys(aggregatedStocks).length) {
+            debugger
             portfolioContent = portfolioStocks.map((symbol, idx) => {
                 let color;
                 let currPrice;
@@ -178,7 +182,16 @@ class Portfolio extends React.Component {
         } else {
             this.findMultipleCompanies(Object.keys(aggregatedStocks))
         }
-        console.log(data)
+        if (this.state.counter !== 0) {
+            emptyOrTrue = <div className="column-names-cont">
+                <div>symbol</div>
+                <div>company</div>
+                <div>shares</div>
+                <div>value</div>
+            </div>
+        } else {
+            emptyOrTrue = <div className="no-stocks-text">You Currently Own No Stocks</div>
+        }
         return (
             <div className="portfolio-container">
                 <div className="port-val-total-text">Portfolio (<div className="money-counter">{this.moneyFormat(this.state.counter)}</div>)</div>
@@ -204,12 +217,7 @@ class Portfolio extends React.Component {
                         </Pie>
                         <Tooltip content={this.renderTooltip.bind(this)} />
                     </PieChart>
-                    <div className="column-names-cont">
-                        <div>symbol</div>
-                        <div>company</div>
-                        <div>shares</div>
-                        <div>value</div>
-                    </div>
+                    {emptyOrTrue}
                     <div>{portfolioContent}</div>
                 </div>
             </div>
