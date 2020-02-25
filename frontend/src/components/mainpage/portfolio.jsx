@@ -87,7 +87,7 @@ class Portfolio extends React.Component {
     async findMultipleCompanies(arr) {
         if (this.state.livePrices === null || arr.length !== Object.values(this.state.livePrices).length) {
             arr = arr.join(",")
-            const res = await fetch(`https://cloud.iexapis.com/v1/stock/market/batch?types=quote&symbols=${arr}&range=5y%20&token=${key}`)
+            const res = await fetch(`https://cloud.iexapis.com/v1/stock/market/batch?types=quote&symbols=${arr}&range=5y%20&token=sk_d78be1c9c5284c1d83028b0ab25aa5fe`)
             const res2 = await res.json()
             if (!res2.error) {
                 this.setState({ livePrices: res2 })
