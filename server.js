@@ -4,18 +4,25 @@ const transactions = require("./routes/api/transactions");
 const express = require("express"); // initializes and creates server 
 const app = express();
 const passport = require('passport');
+const path = require('path');
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+}
+
 app.use(passport.initialize());
-require('./config/passport')(passport);
+require('./frontend/src/config/passport')(passport);
 
 const bodyParser = require('body-parser'); // parse JSON 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-// app.get("/", (req, res) => res.send("Helloss World")); 
 
-// Connect to MongoDB using Mongoose
-const db = require('./config/keys').mongoURI;
+const db = require('./frontend/src/config/keys').mongoURI;
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB successfully"))

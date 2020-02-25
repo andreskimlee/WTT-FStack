@@ -1,9 +1,9 @@
 node_modules/
-/config/keys.js
+/frontend/src/config/keys_dev.js
 /node_modules
 node_modules/
 node_modules
-keys.js
+keys_dev.js
 /.pnp
 .pnp.js
 

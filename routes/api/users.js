@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcryptjs'); // import hasher for registration / pw 
 const User = require('../../models/User'); // import user model
-const keys = require('../../config/keys');
+const keys = require('../../frontend/src/config/keys');
 const passport = require('passport');
 
 const validateRegisterInput = require('../../validations/register');

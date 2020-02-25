@@ -1,5 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Sector, Cell, Tooltip } from 'recharts'
+const Key = require('../../config/keys')
 
 const COLORS = ["#17b3c1", "#47d6b6", "#bff8d4", "#2794eb"]
 const RADIAN = Math.PI / 180;
@@ -86,7 +87,7 @@ class Portfolio extends React.Component {
     async findMultipleCompanies(arr) {
         if (this.state.livePrices === null || arr.length !== Object.values(this.state.livePrices).length) {
             arr = arr.join(",")
-            const res = await fetch(`https://sandbox.iexapis.com/v1/stock/market/batch?types=quote&symbols=${arr}&range=5y%20&token=Tpk_545c7b20d4af458da7672e78f265003a`)
+            const res = await fetch(`https://cloud.iexapis.com/v1/stock/market/batch?types=quote&symbols=${arr}&range=5y%20&token=${Key.IEXAPIKey}`)
             const res2 = await res.json()
             if (!res2.error) {
                 this.setState({ livePrices: res2 })
@@ -136,7 +137,6 @@ class Portfolio extends React.Component {
         this.state.counter = 0
 
         if (this.state.livePrices && Object.keys(this.state.livePrices).length === Object.keys(aggregatedStocks).length) {
-            debugger
             portfolioContent = portfolioStocks.map((symbol, idx) => {
                 let color;
                 let currPrice;
@@ -165,7 +165,7 @@ class Portfolio extends React.Component {
                 data.push({ totalVal: currVal, symbol: symbol })
                 return (
                     <div key={idx} className="portfolio-stock-info-cont">
-                        <div>{symbol}</div>
+                        <div className={`currPrice-${color}`}>{symbol}</div>
                         <div className="company-name-port">{companyName}</div>
                         <div>{shares}</div>
                         <div className={`currPrice-${color}`}>

@@ -2,6 +2,7 @@ import React from 'react';
 import StockGraph from './stock_graph_container'
 import 'odometer/themes/odometer-theme-default.css';
 import Odometer from 'react-odometerjs'
+const Key = { IEXAPIKey: 'sk_d78be1c9c5284c1d83028b0ab25aa5fe' }
 
 class Cash extends React.Component {
     constructor(props) {
@@ -36,14 +37,14 @@ class Cash extends React.Component {
     }
 
     findCompany = val => {
-        fetch(`https://sandbox.iexapis.com/stable/stock/${val}/quote?token=Tpk_545c7b20d4af458da7672e78f265003a`)
+        fetch(`https://cloud.iexapis.com/stable/stock/${val}/quote?token=${Key.IEXAPIKey}`)
             .then(res => {
                 return res.json();
             }).then(res => {
                 this.setState({ company: res, price: res.latestPrice, symbol: val });
 
             })
-        fetch(`https://sandbox.iexapis.com/stable/stock/${val}/chart/1m?token=Tpk_545c7b20d4af458da7672e78f265003a`)
+        fetch(`https://cloud.iexapis.com/stable/stock/${val}/chart/1m?token=${Key.IEXAPIKey}`)
             .then(res => {
                 return res.json();
             }).then(res => {
@@ -76,7 +77,7 @@ class Cash extends React.Component {
 
     getCompanyName = async symbol => {
         let companyName;
-        await fetch(`https://sandbox.iexapis.com/stable/stock/${symbol}/quote?token=Tpk_545c7b20d4af458da7672e78f265003a`)
+        await fetch(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${Key.IEXAPIKey}`)
             .then(res => {
                 return res.json();
             }).then(res => {

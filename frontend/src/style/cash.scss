@@ -158,18 +158,21 @@
 
 
     .errors-container {
-        font-size: 25px;
+        font-size: 20px;
         font-family: Arial, Helvetica, sans-serif;
         font-weight: normal;
-        color: rgb(255, 106, 118);
+        color: #ff6a76;
         margin: 0;
         padding: 20px 0 25px 0;
         transform-origin: 50% 100%;
         text-shadow: 2px 2px 2px #333;
-         
         animation-duration: 1s;
         animation-name: fadeAndScale;
-        animation-timing-function: cubic-bezier(.71,.55,.62,1.57);
+        animation-timing-function: cubic-bezier(0.71, 0.55, 0.62, 1.57);
+        width: 313px;
+        /* top: 0px; */
+        /* left: 0px; */
+        margin-left: 329px;
     }
       
     @keyframes fadeAndScale {

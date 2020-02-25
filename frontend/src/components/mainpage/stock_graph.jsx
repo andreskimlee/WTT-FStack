@@ -11,29 +11,25 @@ class StockGraph extends React.Component {
             Qty: "",
             symbol: this.props.symbol,
             calculator: 'hide',
-            errors: this.props.errors
         }
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.currPrice !== this.props.currPrice) {
             this.setState({ price: this.props.currPrice, originalPrice: this.props.currPrice, symbol: this.props.symbol })
-        } if (prevProps.errors.amount !== this.props.errors.amount) {
-            this.setState({ errors: this.props.errors })
         }
     }
 
 
     handleMouseMove(e) {
         if (e.activePayload !== undefined) {
-            console.log(e.activePayload)
             this.setState({ price: e.activePayload[0].payload.price })
         }
     }
 
     handleFocus(e) {
         if (e.type === 'focus') {
-            this.setState({ calculator: "show", errors: {} })
+            this.setState({ calculator: "show" })
         } else if (e.type === 'blur') {
             this.setState({ calculator: 'hide' })
         }
@@ -83,10 +79,10 @@ class StockGraph extends React.Component {
 
     render() {
         let errors;
-        if (Object.keys(this.state.errors).length > 0) {
+        if (Object.keys(this.props.errors).length > 0) {
 
-            Object.keys(this.state.errors).map(key => {
-                errors = this.state.errors[key]
+            Object.keys(this.props.errors).map(key => {
+                errors = this.props.errors[key]
             })
 
         }
