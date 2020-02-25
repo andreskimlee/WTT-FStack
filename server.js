@@ -8,7 +8,7 @@ const db = process.env.MONGO_URI
 const passport = require('passport');
 
 app.use(passport.initialize());
-require('./config/passport')(passport);
+require('./frontend/src/config/passport')(passport);
 
 mongoose
   .connect(db, { useNewUrlParser: true })
