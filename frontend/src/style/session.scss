@@ -49,12 +49,6 @@ $dark-blue: #071e3d;
 
 
 
-
-.session-form > input:focus {
-    background-color: white;
-    border: 1px solid $light-teal;
-}
-
 .session-form > input.field-inputs {
     margin-top: 10px;
     width: 415px;
@@ -67,10 +61,6 @@ $dark-blue: #071e3d;
 
 
 
-
-.Sign-up-button:hover, .login-button:hover {
-    background-color: #28e7ae;
-}
 
 .sign-in-link, .signup-text { 
     color: $light-teal;
@@ -91,25 +81,10 @@ $dark-blue: #071e3d;
 .demo-login-button:hover { 
     background-color: #3ad3b9;
     border: none;
+    cursor: pointer;
 }
 
 .switch-form-link {
     font-size: 12px;
 }
 
-.Sign-up-button, .login-button {
-    background-color: $light-teal;
-    color: white;
-    font-size: 11px;
-    font-weight: bold;
-    max-width: 140px;
-    max-height: 50px;
-}
-
-.Sign-up-button, .login-button {
-    width: 25%;
-    height: 25%;
-    border-radius: 5px;
-    border: none;   
-    margin-top: 20px;
-}
