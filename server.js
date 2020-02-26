@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-
+// REST routes for users and transactions. 
 app.use("/api/users", users);
 app.use("/api/transactions", transactions);
 app.listen(port, () => console.log(`Server is running on port ${port}`));

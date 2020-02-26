@@ -30,14 +30,6 @@ export const createTransaction = (userId) => dispatch => (
         .then(transaction => dispatch(receiveTrans(transaction)), err => (dispatch(receiveTransErrors(err.response.data))))
 );
 
-// export const signup = user => dispatch => (
-//     APIUtil.signup(user).then(() => (
-//       dispatch(receiveUserSignIn())
-//     ), err => (
-//       dispatch(receiveErrors(err.response.data))
-//     ))
-//   );
-
 
 
 export const fetchAllTrans = (userId) => dispatch => (

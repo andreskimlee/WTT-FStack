@@ -16,16 +16,17 @@ class Cash extends React.Component {
             symbol: null
         }
         this.handleClick = this.handleClick.bind(this);
-        this.getCompanyName = this.getCompanyName.bind(this);
     }
 
+    // fetches a user based on logged in user. 
     componentDidMount() {
         if (this.props.currentUser && Object.values(this.props.user).length < 1) {
             this.props.fetchUser(this.props.currentUser.id)
         }
     }
 
-    // This function's job is to fetch the search results given the specified query. (For Live Search)
+    // This function's job is to fetch the search results given the specified query. (For Live Search) 
+    // Currently using the sandbox api (Testing API) due to account restrictions (free user) for IEX. 
     search = async val => {
         fetch(`https://sandbox.iexapis.com/stable/search/${val}?token=Tsk_536efa1336e94441beb5f27e888e3721`)
             .then(res => {
@@ -36,6 +37,7 @@ class Cash extends React.Component {
             })
     }
 
+    // fetches a company based on the ticker.
     findCompany = val => {
         fetch(`https://cloud.iexapis.com/stable/stock/${val}/quote?token=${Key.IEXAPIKey}`)
             .then(res => {
@@ -44,6 +46,8 @@ class Cash extends React.Component {
                 this.setState({ company: res, price: res.latestPrice, symbol: val });
 
             })
+        // fetches a company and returns the 1 month historical price. This is mainly used for the 
+        // d3 recharts for the line graph. 
         fetch(`https://cloud.iexapis.com/stable/stock/${val}/chart/1m?token=${Key.IEXAPIKey}`)
             .then(res => {
                 return res.json();
@@ -66,32 +70,13 @@ class Cash extends React.Component {
         this.findCompany(val)
     }
 
-    moneyFormat(price, sign = '$') { // formats the user's available funds. 
-        const pieces = parseFloat(price).toFixed(2).split('')
-        let ii = pieces.length - 3
-        while ((ii -= 3) > 0) {
-            pieces.splice(ii, 0, ',')
-        }
-        return sign + pieces.join('')
-    }
-
-    getCompanyName = async symbol => {
-        let companyName;
-        await fetch(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${Key.IEXAPIKey}`)
-            .then(res => {
-                return res.json();
-            }).then(res => {
-                companyName = res.companyName
-            }).then(() => {
-                return companyName
-            })
-
-    }
 
 
     render() {
         let companyName;
         let companyInfo;
+
+        // ensures company was selected from liveSearch before displaying the stock/companyInfo
         if (this.state.company) {
             companyName = this.state.company.companyName
             companyInfo = <div className="abc-dd">

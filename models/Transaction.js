@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Transaction schema. Created when a user purchases a stock
 const TransactionSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
@@ -28,10 +29,6 @@ const TransactionSchema = new Schema({
     type: Date,
     default: Date.now
   },
-
-  // isDeleted: { // come back to it verify naming convention. 
-  //   type: Boolean,  
-  // }
 
 });
 

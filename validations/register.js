@@ -10,28 +10,33 @@ module.exports = function validRegisterInput(data) {
     data.password2 = validText(data.password2) ? data.password2 : ""
 
 
-
+    // if email is empty
     if (Validator.isEmpty(data.email)) {
         errors.email = "Email field is required";
     }
 
+    // if email does not include @ symbol and .com 
     if (!Validator.isEmail(data.email)) {
 
         errors.email = "Email is invalid";
     }
 
+    // not empty field
     if (Validator.isEmpty(data.name)) {
         errors.name = "Full name field is required";
     }
 
+    // not empty field
     if (Validator.isEmpty(data.password)) {
         errors.password = "Password field is required";
     }
 
+    // ensures password length
     if (!Validator.isLength(data.password, { min: 8, max: 30 })) {
         errors.password = "Password must be between 8 and 30 characters"
     }
 
+    // ensures password is equal to second field password.
     if (!Validator.equals(data.password, data.password2)) {
         errors.password2 = "Password must match"
     }

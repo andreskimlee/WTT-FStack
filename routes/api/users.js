@@ -10,15 +10,15 @@ const validateLoginInput = require('../../validations/login');
 
 const jwt = require('jsonwebtoken'); // To setup JSON web token
 
-
-router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
+// user register route. 
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
-
+  // validations on password, email, and name. 
   if (!isValid) {
     return res.status(400).json(errors);
   }
 
+  // ensures there isnt a duplicate email that exists within the database. 
   User.findOne({ email: req.body.email }).then(user => {
 
     if (user) {
@@ -30,7 +30,7 @@ router.post("/register", (req, res) => {
         email: req.body.email,
         password: req.body.password
       });
-
+      // hashes password to database using bCrypt
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
@@ -40,10 +40,10 @@ router.post("/register", (req, res) => {
             .then(user => {
               const payload = {
                 id: user.id,
-                username: user.username,
+                name: user.name,
                 email: user.email
               };
-
+              // once user is registered, a jwt token is generated for the user.
               jwt.sign(
                 payload,
                 keys.secretOrKey,
@@ -61,7 +61,7 @@ router.post("/register", (req, res) => {
     }
   });
 });
-// users.js
+// Login route for the user ()
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
@@ -75,18 +75,16 @@ router.post("/login", (req, res) => {
   User.findOne({
     $or: [
       { email: req.body.email },
-      { username: req.body.username }
     ]
   }).then(user => {
     if (!user) {
       if (req.body.email) {
         errors.email = "This email does not exist";
-      } else {
-        errors.username = "This username does not exist";
       }
       return res.status(400).json(errors);
     }
 
+    // compares hashed password to received password.
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
         const payload = {
@@ -115,6 +113,8 @@ router.post("/login", (req, res) => {
   });
 });
 
+
+
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
     id: req.user.id,
@@ -125,6 +125,7 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
 }
 );
 
+// find user by userID. currently not needed but leaving in case of future needs. 
 router.get('/:userId', passport.authenticate('jwt', { session: false }), (req, res) => {
   let userId = req.params.userId;
   User.findById(userId).then(user => res.json(user))
