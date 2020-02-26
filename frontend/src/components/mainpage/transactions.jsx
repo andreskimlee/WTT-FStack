@@ -9,6 +9,7 @@ class TransactionPage extends React.Component {
         })
     }
 
+    // transaction page. displays all a users transactions without aggregation.
     render() {
         let allTransactions;
         if (this.props.transactions.length > 0) {
