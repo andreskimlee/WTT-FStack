@@ -140,15 +140,15 @@ class Portfolio extends React.Component {
             portfolioContent = portfolioStocks.map((symbol, idx) => {
                 let color;
                 let currPrice;
-                // let openPrice;
+                let openPrice;
                 let companyName;
                 let direction;
                 let pricePurchased = aggregatedStocks[symbol].amount
                 currPrice = this.state.livePrices[symbol].quote.latestPrice
-                // openPrice = this.state.livePrices[symbol].quote.open
+                openPrice = this.state.livePrices[symbol].quote.open ? this.state.livePrices[symbol].quote.open : this.state.livePrices[symbol].quote.previousClose
                 companyName = this.state.livePrices[symbol].quote.companyName
                 let shares = aggregatedStocks[symbol].count
-                let Profit = (shares * currPrice) - pricePurchased
+                let Profit = (shares * openPrice) - pricePurchased
                 let currVal = (currPrice * shares)
                 Counter += currVal
                 if (Profit < 0) {
