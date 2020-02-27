@@ -62,6 +62,28 @@ class StockGraph extends React.Component {
         this.setState({ Qty: e.target.value })
     }
 
+    renderStockInfo() {
+        let lastNotNullPrice;
+        let stockInfo;
+        if (this.props.data) {
+            stockInfo = this.props.data.map((stock, idx) => {
+                if (stock.high !== null) {
+                    lastNotNullPrice = stock.high
+                } else {
+                    stock.high = lastNotNullPrice;
+                };
+                return {
+                    date: stock.date,
+                    time: new Date(`${stock.date}T${stock.minute}:00`).toLocaleTimeString().split(" ")[0],
+                    price: stock.high,
+                    idx: idx,
+                }
+            }
+            )
+        };
+        return stockInfo;
+    }
+
     render() {
         let errors;
         // if there are errors, this will display errors onto the field. 
