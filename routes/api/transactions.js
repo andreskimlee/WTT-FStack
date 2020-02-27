@@ -17,7 +17,7 @@ router.post("/",
 
     const newTransaction = new Transaction({
       user: req.body.user.id,
-      amount: req.body.amount,
+      amount: (req.body.amount * req.body.stockCount),
       symbol: req.body.symbol,
       stock_count: req.body.stockCount,
       transaction_type: req.body.transactionType,
